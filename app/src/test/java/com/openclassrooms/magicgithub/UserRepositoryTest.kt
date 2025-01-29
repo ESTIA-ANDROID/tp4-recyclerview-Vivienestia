@@ -55,4 +55,12 @@ class UserRepositoryTest {
         userRepository.deleteUser(userToDelete)
         Assert.assertFalse(userRepository.getUsers().contains(userToDelete))
     }
+
+    @Test
+    fun toggleUserShouldInvertIsActive() {
+        val user = User("001", "Jake", "url.png", true)
+        user.isActive = !user.isActive
+        Assert.assertFalse(user.isActive) // on vérifie qu'il est passé à false
+    }
+
 }

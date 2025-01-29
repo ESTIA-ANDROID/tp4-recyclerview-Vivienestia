@@ -2,41 +2,54 @@ package com.openclassrooms.magicgithub.ui.user_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.magicgithub.R
+import com.openclassrooms.magicgithub.databinding.ItemListUserBinding
 import com.openclassrooms.magicgithub.model.User
-import com.openclassrooms.magicgithub.utils.UserDiffCallback
+import java.util.*
 
-class UserListAdapter(  // FOR CALLBACK ---
+class UserListAdapter(
     private val callback: Listener
 ) : RecyclerView.Adapter<ListUserViewHolder>() {
-    // FOR DATA ---
-    private var users: List<User> = ArrayList()
 
     interface Listener {
         fun onClickDelete(user: User)
     }
 
+    // -- Liste mutable (pour pouvoir échanger facilement) --
+    private val users: MutableList<User> = mutableListOf()
+
+    // -- On "gonfle" le layout via ViewBinding --
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListUserViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.item_list_user, parent, false)
-        return ListUserViewHolder(view)
+        val binding =
+            ItemListUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListUserViewHolder(binding)
     }
 
+    // -- Binder un item --
     override fun onBindViewHolder(holder: ListUserViewHolder, position: Int) {
-        holder.bind(users[position], callback)
+        val user = users[position]
+        holder.bind(user, callback)
     }
 
-    override fun getItemCount(): Int {
-        return users.size
-    }
+    override fun getItemCount(): Int = users.size
 
-    // PUBLIC API ---
+    // -- Méthode pour récupérer un item (swipe) --
+    fun getItem(position: Int): User = users[position]
+
+    // -- Méthode pour remplacer toute la liste --
     fun updateList(newList: List<User>) {
-        val diffResult = DiffUtil.calculateDiff(UserDiffCallback(newList, users))
-        users = newList
-        diffResult.dispatchUpdatesTo(this)
+        // On vide la liste existante, et on ajoute les nouveaux items
+        users.clear()
+        users.addAll(newList)
+        // On notifie qu’on a rechargé la liste
+        notifyDataSetChanged()
+    }
+
+    // -- Méthode pour échanger deux items (drag & drop) --
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        // Échange dans la liste
+        Collections.swap(users, fromPosition, toPosition)
+        // Notifie le RecyclerView du déplacement
+        notifyItemMoved(fromPosition, toPosition)
     }
 }

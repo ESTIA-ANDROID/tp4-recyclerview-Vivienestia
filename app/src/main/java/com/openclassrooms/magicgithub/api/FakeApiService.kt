@@ -13,7 +13,7 @@ class FakeApiService : ApiService {
      */
     override fun getUsers(): List<User> {
         // On renvoie simplement la liste en lecture seule
-        return _users
+        return _users.toList()
     }
 
     /**
