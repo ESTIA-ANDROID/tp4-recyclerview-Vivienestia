@@ -7,14 +7,17 @@ class UserRepository(
     private val apiService: ApiService
 ) {
     fun getUsers(): List<User> {
-        TODO("Should return the list of users retrieved from the api service")
+        // Retourne la liste issue de l'apiService
+        return apiService.getUsers()
     }
 
     fun addRandomUser() {
-        TODO("Should add a random user")
+        // Ajoute un utilisateur aléatoire via l'apiService
+        apiService.addRandomUser()
     }
 
-    fun deleteUser(user: User) {
-        TODO("Should remove the user")
+    fun deleteUser(username: User) {
+        // Supprime l'utilisateur via l'apiService
+        apiService.deleteUser(username)
     }
 }
