@@ -10,7 +10,6 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.openclassrooms.magicgithub.di.Injection.getRepository
 import com.openclassrooms.magicgithub.ui.user_list.ListUserActivity
-import com.openclassrooms.magicgithub.utils.RecyclerViewUtils
 import com.openclassrooms.magicgithub.utils.RecyclerViewUtils.ItemCount
 import com.openclassrooms.magicgithub.utils.RecyclerViewUtils.clickChildView
 import org.junit.Before
@@ -53,7 +52,7 @@ class UserListInstrumentedTest {
 
     @Test
     fun checkIfRemovingUserIsWorking() {
-        Espresso.onView(ViewMatchers.withId(R.id.activity_list_user_rv))
+        Espresso.onView(ViewMatchers.withId(R.id.item_list_user_username))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
@@ -69,7 +68,7 @@ class UserListInstrumentedTest {
     }
 
     @Test
-    fun checkIfActiveworks(){
+    fun checkIfsetActiveInactiveIsWorking(){
         // TODO: Not yet implemented
     }
 }
