@@ -60,9 +60,8 @@ class UserRepositoryTest {
     @Test
     fun toggleUserShouldInvertIsActive() {
         val userToActivate = userRepository.getUsers()[1]
-        // on vérifie qu'il est actif
         val isActive = userToActivate.isActive
-        userRepository.active(userToActivate)
+        userRepository.setActiveInactive(userToActivate)
         assertNotEquals(isActive, userToActivate.isActive)
     }
 

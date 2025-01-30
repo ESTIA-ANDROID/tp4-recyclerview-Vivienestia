@@ -25,7 +25,7 @@ class UserRepository(
         // Echange les positions des utilisateurs via l'apiService
         apiService.swipeUser(fromPosition, toPosition)
     }
-    fun active(user: User) {
-        apiService.active(user)
+    fun setActiveInactive(user: User) {
+        apiService.setActiveInactive(user)
     }
 }

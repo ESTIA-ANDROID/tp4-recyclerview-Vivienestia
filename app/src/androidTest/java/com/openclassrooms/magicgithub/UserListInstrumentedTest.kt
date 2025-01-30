@@ -63,5 +63,13 @@ class UserListInstrumentedTest {
         Espresso.onView(ViewMatchers.withId(R.id.activity_list_user_rv))
             .check(ItemCount(currentUsersSize - 1))
     }
+    @Test
+    fun checkIfSwipeUserIsWorking() {
+        // TODO: not yet implemented
+    }
 
+    @Test
+    fun checkIfActiveworks(){
+        // TODO: Not yet implemented
+    }
 }

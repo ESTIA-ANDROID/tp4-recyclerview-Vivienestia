@@ -43,7 +43,9 @@ class FakeApiService : ApiService {
     /**
      * Activate or deactivate a [User].
      */
-    override fun active(user: User) {
-        user.isActive = !user.isActive
+    override fun setActiveInactive(user: User) {
+        val newUser = user.copy(isActive = !user.isActive)
+        val position = _users.indexOf(user)
+        _users[position] = newUser
     }
 }

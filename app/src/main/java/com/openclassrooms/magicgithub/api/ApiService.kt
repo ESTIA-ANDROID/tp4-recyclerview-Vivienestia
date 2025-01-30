@@ -7,5 +7,5 @@ interface ApiService {
     fun addRandomUser()
     fun deleteUser(username: User)
     fun swipeUser(fromPosition: Int, toPosition: Int)
-    fun active(user: User)
+    fun setActiveInactive(user: User)
 }

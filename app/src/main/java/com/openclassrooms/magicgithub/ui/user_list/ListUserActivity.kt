@@ -59,9 +59,8 @@ class ListUserActivity : AppCompatActivity(), UserListAdapter.Listener {
                 // Récupérer l’utilisateur swipé
                 val position = viewHolder.adapterPosition
                 val user = adapter.getItem(position)
-                getRepository().active(user)
-                //loadData()
-                adapter.notifyItemChanged(position)
+                getRepository().setActiveInactive(user)
+                loadData()
             }
         }
 
