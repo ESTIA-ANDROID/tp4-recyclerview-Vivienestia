@@ -52,7 +52,7 @@ class UserListInstrumentedTest {
 
     @Test
     fun checkIfRemovingUserIsWorking() {
-        Espresso.onView(ViewMatchers.withId(R.id.item_list_user_username))
+        Espresso.onView(ViewMatchers.withId(R.id.activity_list_user_rv))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
