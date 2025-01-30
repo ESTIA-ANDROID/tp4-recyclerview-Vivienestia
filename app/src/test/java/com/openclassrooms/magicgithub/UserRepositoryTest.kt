@@ -7,6 +7,7 @@ import com.openclassrooms.magicgithub.model.User
 import com.openclassrooms.magicgithub.repository.UserRepository
 import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -58,9 +59,20 @@ class UserRepositoryTest {
 
     @Test
     fun toggleUserShouldInvertIsActive() {
-        val user = User("001", "Jake", "url.png", true)
-        user.isActive = !user.isActive
-        Assert.assertFalse(user.isActive) // on vérifie qu'il est passé à false
+        val userToActivate = userRepository.getUsers()[1]
+        // on vérifie qu'il est actif
+        val isActive = userToActivate.isActive
+        userRepository.active(userToActivate)
+        assertNotEquals(isActive, userToActivate.isActive)
+    }
+
+    @Test
+    fun swipeUserWithSuccess() {
+        val user1 = userRepository.getUsers()[0]
+        val user2 = userRepository.getUsers()[1]
+        userRepository.swipeUser(0, 1)
+        assertEquals(userRepository.getUsers()[0], user2)
+        assertEquals(userRepository.getUsers()[1], user1)
     }
 
 }

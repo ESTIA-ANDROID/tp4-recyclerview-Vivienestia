@@ -10,6 +10,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.openclassrooms.magicgithub.di.Injection.getRepository
 import com.openclassrooms.magicgithub.ui.user_list.ListUserActivity
+import com.openclassrooms.magicgithub.utils.RecyclerViewUtils
 import com.openclassrooms.magicgithub.utils.RecyclerViewUtils.ItemCount
 import com.openclassrooms.magicgithub.utils.RecyclerViewUtils.clickChildView
 import org.junit.Before
@@ -62,4 +63,5 @@ class UserListInstrumentedTest {
         Espresso.onView(ViewMatchers.withId(R.id.activity_list_user_rv))
             .check(ItemCount(currentUsersSize - 1))
     }
+
 }

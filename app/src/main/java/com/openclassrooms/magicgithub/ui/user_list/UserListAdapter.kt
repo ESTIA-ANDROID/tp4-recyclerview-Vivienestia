@@ -2,10 +2,12 @@ package com.openclassrooms.magicgithub.ui.user_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.magicgithub.databinding.ItemListUserBinding
 import com.openclassrooms.magicgithub.model.User
-import java.util.*
+import com.openclassrooms.magicgithub.utils.UserDiffCallback
+import kotlin.collections.ArrayList
 
 class UserListAdapter(
     private val callback: Listener
@@ -16,7 +18,7 @@ class UserListAdapter(
     }
 
     // -- Liste mutable (pour pouvoir échanger facilement) --
-    private val users: MutableList<User> = mutableListOf()
+    private var users: List<User> = ArrayList()
 
     // -- On "gonfle" le layout via ViewBinding --
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListUserViewHolder {
@@ -38,18 +40,8 @@ class UserListAdapter(
 
     // -- Méthode pour remplacer toute la liste --
     fun updateList(newList: List<User>) {
-        // On vide la liste existante, et on ajoute les nouveaux items
-        users.clear()
-        users.addAll(newList)
-        // On notifie qu’on a rechargé la liste
-        notifyDataSetChanged()
-    }
-
-    // -- Méthode pour échanger deux items (drag & drop) --
-    fun swapItems(fromPosition: Int, toPosition: Int) {
-        // Échange dans la liste
-        Collections.swap(users, fromPosition, toPosition)
-        // Notifie le RecyclerView du déplacement
-        notifyItemMoved(fromPosition, toPosition)
+        val diffResult = DiffUtil.calculateDiff(UserDiffCallback(newList,users))
+        users = newList.toList()
+        diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -1,6 +1,7 @@
 package com.openclassrooms.magicgithub.api
 
 import com.openclassrooms.magicgithub.model.User
+import java.util.Collections
 
 class FakeApiService : ApiService {
 
@@ -30,5 +31,19 @@ class FakeApiService : ApiService {
      */
     override fun deleteUser(username: User) {
         _users.remove(username)
+    }
+
+    /**
+     * Swap two [User] positions in the [_users] list.
+     */
+    override fun swipeUser(fromPosition: Int, toPosition: Int) {
+        Collections.swap(_users, fromPosition, toPosition)
+    }
+
+    /**
+     * Activate or deactivate a [User].
+     */
+    override fun active(user: User) {
+        user.isActive = !user.isActive
     }
 }

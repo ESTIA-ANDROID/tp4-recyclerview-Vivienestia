@@ -20,4 +20,12 @@ class UserRepository(
         // Supprime l'utilisateur via l'apiService
         apiService.deleteUser(username)
     }
+
+    fun swipeUser(fromPosition: Int, toPosition: Int) {
+        // Echange les positions des utilisateurs via l'apiService
+        apiService.swipeUser(fromPosition, toPosition)
+    }
+    fun active(user: User) {
+        apiService.active(user)
+    }
 }

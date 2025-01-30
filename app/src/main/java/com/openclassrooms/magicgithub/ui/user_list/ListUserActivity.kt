@@ -50,7 +50,8 @@ class ListUserActivity : AppCompatActivity(), UserListAdapter.Listener {
                 // Réordonner la liste si on déplace la cellule
                 val fromPosition = viewHolder.adapterPosition
                 val toPosition = target.adapterPosition
-                adapter.swapItems(fromPosition, toPosition)
+                getRepository().swipeUser(fromPosition, toPosition)
+                loadData()
                 return true
             }
 
@@ -58,9 +59,8 @@ class ListUserActivity : AppCompatActivity(), UserListAdapter.Listener {
                 // Récupérer l’utilisateur swipé
                 val position = viewHolder.adapterPosition
                 val user = adapter.getItem(position)
-
-                // Exemple : inverser l'état actif/inactif, puis rafraîchir cet item
-                user.isActive = !user.isActive
+                getRepository().active(user)
+                //loadData()
                 adapter.notifyItemChanged(position)
             }
         }
